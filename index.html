@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador do Brasileirão</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #222;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px #0002;
+}
+
+.jogo {
+    display: grid;
+    grid-template-columns: 1fr 60px 60px 1fr;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.time {
+    font-weight: bold;
+}
+
+.casa {
+    text-align: right;
+}
+
+input {
+    width: 45px;
+    padding: 8px;
+    text-align: center;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #1877f2;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0d5dcc;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .jogo {
+        grid-template-columns: 1fr 45px 45px 1fr;
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⚽ Simulador do Brasileirão</h1>
+
+<div class="card">
+<h2>Simule os jogos</h2>
+
+<div id="jogos"></div>
+
+<button onclick="zerar()">Zerar resultados</button>
+</div>
+
+<div class="card">
+<h2>🏆 Classificação</h2>
+
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Time</th>
+<th>Pts</th>
+<th>J</th>
+<th>V</th>
+<th>E</th>
+<th>D</th>
+<th>SG</th>
+</tr>
+</thead>
+
+<tbody id="tabela"></tbody>
+
+</table>
+</div>
+
+</div>
+
+<script>
+
+const times = [
+"Flamengo",
+"Palmeiras",
+"Corinthians",
+"São Paulo",
+"Atlético-MG",
+"Cruzeiro",
+"Grêmio",
+"Internacional",
+"Fluminense",
+"Botafogo",
+"Vasco",
+"Bahia"
+];
+
+const jogos = [];
+
+for (let i = 0; i < times.length; i++) {
+    for (let j = i + 1; j < times.length; j++) {
+
+        jogos.push({
+            casa: times[i],
+            fora: times[j],
+            golsCasa: 0,
+            golsFora: 0
+        });
+
+        if (jogos.length >= 30) break;
+    }
+
+    if (jogos.length >= 30) break;
+}
+
+function mostrarJogos() {
+
+    const area = document.getElementById("jogos");
+
+    area.innerHTML = "";
+
+    jogos.forEach((jogo, index) => {
+
+        area.innerHTML += `
+        <div class="jogo">
+
+            <div class="time casa">
+                ${jogo.casa}
+            </div>
+
+            <input
+                type="number"
+                min="0"
+                value="${jogo.golsCasa}"
+                onchange="alterar(${index}, 'casa', this.value)"
+            >
+
+            <input
+                type="number"
+                min="0"
+                value="${jogo.golsFora}"
+                onchange="alterar(${index}, 'fora', this.value)"
+            >
+
+            <div class="time">
+                ${jogo.fora}
+            </div>
+
+        </div>
+        `;
+    });
+}
+
+function alterar(index, lado, valor) {
+
+    valor = Number(valor);
+
+    if (valor < 0 || isNaN(valor)) {
+        valor = 0;
+    }
+
+    if (lado === "casa") {
+        jogos[index].golsCasa = valor;
+    } else {
+        jogos[index].golsFora = valor;
+    }
+
+    atualizarTabela();
+}
+
+function atualizarTabela() {
+
+    const tabela = {};
+
+    times.forEach(time => {
+
+        tabela[time] = {
+            nome: time,
+            pts: 0,
+            jogos: 0,
+            vitorias: 0,
+            empates: 0,
+            derrotas: 0,
+            gp: 0,
+            gc: 0
+        };
+
+    });
+
+    jogos.forEach(jogo => {
+
+        const casa = tabela[jogo.casa];
+        const fora = tabela[jogo.fora];
+
+        casa.jogos++;
+        fora.jogos++;
+
+        casa.gp += jogo.golsCasa;
+        casa.gc += jogo.golsFora;
+
+        fora.gp += jogo.golsFora;
+        fora.gc += jogo.golsCasa;
+
+        if (jogo.golsCasa > jogo.golsFora) {
+
+            casa.pts += 3;
+            casa.vitorias++;
+
+            fora.derrotas++;
+
+        } else if (jogo.golsCasa < jogo.golsFora) {
+
+            fora.pts += 3;
+            fora.vitorias++;
+
+            casa.derrotas++;
+
+        } else {
+
+            casa.pts++;
+            fora.pts++;
+
+            casa.empates++;
+            fora.empates++;
+        }
+
+    });
+
+    const lista = Object.values(tabela);
+
+    lista.sort((a, b) => {
+
+        if (b.pts !== a.pts)
+            return b.pts - a.pts;
+
+        const saldoA = a.gp - a.gc;
+        const saldoB = b.gp - b.gc;
+
+        return saldoB - saldoA;
+
+    });
+
+    const corpo = document.getElementById("tabela");
+
+    corpo.innerHTML = "";
+
+    lista.forEach((time, index) => {
+
+        const saldo = time.gp - time.gc;
+
+        corpo.innerHTML += `
+        <tr>
+
+            <td>${index + 1}</td>
+
+            <td>${time.nome}</td>
+
+            <td><strong>${time.pts}</strong></td>
+
+            <td>${time.jogos}</td>
+
+            <td>${time.vitorias}</td>
+
+            <td>${time.empates}</td>
+
+            <td>${time.derrotas}</td>
+
+            <td>${saldo}</td>
+
+        </tr>
+        `;
+
+    });
+}
+
+function zerar() {
+
+    jogos.forEach(jogo => {
+
+        jogo.golsCasa = 0;
+        jogo.golsFora = 0;
+
+    });
+
+    mostrarJogos();
+    atualizarTabela();
+}
+
+mostrarJogos();
+atualizarTabela();
+
+</script>
+
+</body>
+</html>
