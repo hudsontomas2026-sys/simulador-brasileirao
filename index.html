@@ -3,116 +3,300 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador do Brasileirão</title>
+
+<title>Simulador Brasileirão 2026</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    margin: 0;
-    padding: 20px;
+
+* {
+    box-sizing: border-box;
 }
 
-.container {
-    max-width: 900px;
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    color: #17202a;
+}
+
+header {
+    background: #087f3e;
+    color: white;
+    padding: 22px 15px;
+}
+
+.header {
+    max-width: 1100px;
     margin: auto;
 }
 
-h1 {
-    text-align: center;
-    color: #222;
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin-top: 6px;
+    opacity: .9;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 0 15px;
 }
 
 .card {
     background: white;
+    border-radius: 14px;
     padding: 20px;
-    border-radius: 12px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 8px #0002;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+select,
+button,
+input {
+    font-size: 16px;
+}
+
+select {
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+}
+
+button {
+    border: 0;
+    padding: 11px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #087f3e;
+    color: white;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+button.secondary {
+    background: #555;
+}
+
+.info {
+    background: #eef8f2;
+    border-left: 4px solid #087f3e;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-size: 14px;
 }
 
 .jogo {
     display: grid;
-    grid-template-columns: 1fr 60px 60px 1fr;
+    grid-template-columns: 1fr 55px 55px 1fr;
     gap: 10px;
     align-items: center;
-    margin-bottom: 12px;
+    padding: 13px 5px;
+    border-bottom: 1px solid #eee;
 }
 
-.time {
+.jogo:last-child {
+    border-bottom: 0;
+}
+
+.mandante {
+    text-align: right;
     font-weight: bold;
 }
 
-.casa {
-    text-align: right;
+.visitante {
+    text-align: left;
+    font-weight: bold;
 }
 
-input {
-    width: 45px;
-    padding: 8px;
+.placar {
+    width: 50px;
+    padding: 9px 3px;
     text-align: center;
-    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
 }
 
-button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #1877f2;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #0d5dcc;
+.tabela-wrapper {
+    overflow-x: auto;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 700px;
 }
 
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+th {
+    background: #087f3e;
+    color: white;
+    padding: 11px 7px;
+}
+
+td {
+    padding: 10px 7px;
+    border-bottom: 1px solid #eee;
     text-align: center;
 }
 
-th:nth-child(2),
 td:nth-child(2) {
     text-align: left;
+    font-weight: bold;
+}
+
+.posicao {
+    font-weight: bold;
+}
+
+.libertadores {
+    background: #e8f3ff;
+}
+
+.rebaixamento {
+    background: #fff0f0;
+}
+
+.destaque {
+    background: #fff9df;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 5px;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+.badge-lib {
+    background: #2276d2;
+    color: white;
+}
+
+.badge-z4 {
+    background: #d93025;
+    color: white;
+}
+
+.rodape {
+    text-align: center;
+    color: #777;
+    padding: 30px 10px;
+    font-size: 13px;
 }
 
 @media (max-width: 600px) {
+
+    .logo {
+        font-size: 22px;
+    }
+
     .jogo {
         grid-template-columns: 1fr 45px 45px 1fr;
-        font-size: 14px;
+        gap: 5px;
+        font-size: 13px;
     }
+
+    .placar {
+        width: 42px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
+<header>
+
+<div class="header">
+
+<div class="logo">
+⚽ Simulador Brasileirão
+</div>
+
+<div class="subtitle">
+Série A 2026 • Simule todos os resultados
+</div>
+
+</div>
+
+</header>
+
 <div class="container">
 
-<h1>⚽ Simulador do Brasileirão</h1>
+<div class="card">
+
+<h2>🏆 Simulador</h2>
+
+<div class="controls">
+
+<label>
+Rodada:
+</label>
+
+<select id="rodada"></select>
+
+<button onclick="zerarRodada()">
+Zerar rodada
+</button>
+
+<button class="secondary" onclick="zerarTudo()">
+Zerar campeonato
+</button>
+
+</div>
+
+<div class="info">
+Modo simulador: os placares abaixo são definidos por você.
+</div>
+
+</div>
+
 
 <div class="card">
-<h2>Simule os jogos</h2>
+
+<h2 id="tituloRodada">
+Rodada 1
+</h2>
 
 <div id="jogos"></div>
 
-<button onclick="zerar()">Zerar resultados</button>
 </div>
 
+
 <div class="card">
-<h2>🏆 Classificação</h2>
+
+<h2>📊 Classificação</h2>
+
+<div class="tabela-wrapper">
 
 <table>
+
 <thead>
+
 <tr>
+
 <th>#</th>
 <th>Time</th>
 <th>Pts</th>
@@ -120,226 +304,710 @@ td:nth-child(2) {
 <th>V</th>
 <th>E</th>
 <th>D</th>
+<th>GP</th>
+<th>GC</th>
 <th>SG</th>
+
 </tr>
+
 </thead>
 
-<tbody id="tabela"></tbody>
+<tbody id="tabela">
+
+</tbody>
 
 </table>
+
 </div>
 
 </div>
+
+
+<div class="card">
+
+<h3>Legenda</h3>
+
+<p>
+🔵 Libertadores
+</p>
+
+<p>
+🔴 Rebaixamento
+</p>
+
+<p>
+🟡 Líder
+</p>
+
+</div>
+
+</div>
+
+
+<div class="rodape">
+
+Simulador Brasileirão 2026
+
+<br>
+
+Projeto independente para simulação.
+
+</div>
+
 
 <script>
 
+/* =====================================================
+   TIMES OFICIAIS DA SÉRIE A 2026
+===================================================== */
+
 const times = [
-"Flamengo",
-"Palmeiras",
-"Corinthians",
-"São Paulo",
+
 "Atlético-MG",
+"Athletico-PR",
+"Bahia",
+"Botafogo",
+"Bragantino",
+"Chapecoense",
+"Corinthians",
+"Coritiba",
 "Cruzeiro",
+"Flamengo",
+"Fluminense",
 "Grêmio",
 "Internacional",
-"Fluminense",
-"Botafogo",
+"Mirassol",
+"Palmeiras",
+"Remo",
+"Santos",
+"São Paulo",
 "Vasco",
-"Bahia"
+"Vitória"
+
 ];
 
-const jogos = [];
 
-for (let i = 0; i < times.length; i++) {
-    for (let j = i + 1; j < times.length; j++) {
+/* =====================================================
+   ESTRUTURA DO CAMPEONATO
+===================================================== */
 
-        jogos.push({
-            casa: times[i],
-            fora: times[j],
-            golsCasa: 0,
-            golsFora: 0
-        });
+let jogos = [];
 
-        if (jogos.length >= 30) break;
+
+/*
+   Criamos 38 rodadas.
+   Cada time joga 19 partidas em casa
+   e 19 fora.
+*/
+
+function criarCalendario() {
+
+    jogos = [];
+
+    let lista = [...times];
+
+    for (let rodada = 1; rodada <= 19; rodada++) {
+
+        let jogosRodada = [];
+
+        for (let i = 0; i < 10; i++) {
+
+            const casa = lista[i];
+            const fora = lista[19 - i];
+
+            jogosRodada.push({
+
+                rodada: rodada,
+                casa: casa,
+                fora: fora,
+                golsCasa: null,
+                golsFora: null
+
+            });
+
+        }
+
+        jogos.push(...jogosRodada);
+
+        lista = [
+            lista[0],
+            lista[19],
+            ...lista.slice(1, 19)
+        ];
+
     }
 
-    if (jogos.length >= 30) break;
+
+    /*
+       Segundo turno.
+       Inverte o mando.
+    */
+
+    const primeiroTurno = [...jogos];
+
+    primeiroTurno.forEach(jogo => {
+
+        jogos.push({
+
+            rodada: jogo.rodada + 19,
+
+            casa: jogo.fora,
+
+            fora: jogo.casa,
+
+            golsCasa: null,
+
+            golsFora: null
+
+        });
+
+    });
+
 }
 
-function mostrarJogos() {
+
+/* =====================================================
+   SELECT DE RODADAS
+===================================================== */
+
+const seletor = document.getElementById("rodada");
+
+for (let i = 1; i <= 38; i++) {
+
+    const option = document.createElement("option");
+
+    option.value = i;
+
+    option.textContent = "Rodada " + i;
+
+    seletor.appendChild(option);
+
+}
+
+seletor.addEventListener("change", mostrarRodada);
+
+
+/* =====================================================
+   MOSTRAR JOGOS
+===================================================== */
+
+function mostrarRodada() {
+
+    const rodada = Number(seletor.value);
+
+    document.getElementById("tituloRodada").textContent =
+        "Rodada " + rodada;
 
     const area = document.getElementById("jogos");
 
     area.innerHTML = "";
 
-    jogos.forEach((jogo, index) => {
+    const jogosDaRodada =
+        jogos.filter(jogo => jogo.rodada === rodada);
 
-        area.innerHTML += `
-        <div class="jogo">
 
-            <div class="time casa">
+    jogosDaRodada.forEach((jogo, index) => {
+
+        const numero =
+            jogos.indexOf(jogo);
+
+
+        const div = document.createElement("div");
+
+        div.className = "jogo";
+
+
+        div.innerHTML = `
+
+            <div class="mandante">
                 ${jogo.casa}
             </div>
 
             <input
+                class="placar"
                 type="number"
                 min="0"
-                value="${jogo.golsCasa}"
-                onchange="alterar(${index}, 'casa', this.value)"
+                max="30"
+                placeholder="-"
+                value="${jogo.golsCasa ?? ""}"
+                data-index="${numero}"
+                data-lado="casa"
             >
 
             <input
+                class="placar"
                 type="number"
                 min="0"
-                value="${jogo.golsFora}"
-                onchange="alterar(${index}, 'fora', this.value)"
+                max="30"
+                placeholder="-"
+                value="${jogo.golsFora ?? ""}"
+                data-index="${numero}"
+                data-lado="fora"
             >
 
-            <div class="time">
+            <div class="visitante">
                 ${jogo.fora}
             </div>
 
-        </div>
         `;
+
+        area.appendChild(div);
+
     });
+
+
+    document
+        .querySelectorAll(".placar")
+        .forEach(input => {
+
+            input.addEventListener(
+                "input",
+                alterarPlacar
+            );
+
+        });
+
 }
 
-function alterar(index, lado, valor) {
+
+/* =====================================================
+   ALTERAR PLACAR
+===================================================== */
+
+function alterarPlacar(event) {
+
+    const input = event.target;
+
+    const index = Number(input.dataset.index);
+
+    let valor = input.value;
+
+    if (valor === "") {
+
+        if (input.dataset.lado === "casa") {
+
+            jogos[index].golsCasa = null;
+
+        } else {
+
+            jogos[index].golsFora = null;
+
+        }
+
+        atualizarTabela();
+
+        return;
+    }
+
 
     valor = Number(valor);
 
-    if (valor < 0 || isNaN(valor)) {
+
+    if (!Number.isFinite(valor)) {
+
         valor = 0;
+
     }
 
-    if (lado === "casa") {
+
+    valor = Math.max(
+        0,
+        Math.min(30, Math.floor(valor))
+    );
+
+
+    input.value = valor;
+
+
+    if (input.dataset.lado === "casa") {
+
         jogos[index].golsCasa = valor;
+
     } else {
+
         jogos[index].golsFora = valor;
+
     }
+
 
     atualizarTabela();
+
 }
 
-function atualizarTabela() {
+
+/* =====================================================
+   CLASSIFICAÇÃO
+===================================================== */
+
+function criarTabelaInicial() {
 
     const tabela = {};
 
     times.forEach(time => {
 
         tabela[time] = {
+
             nome: time,
+
             pts: 0,
+
             jogos: 0,
+
             vitorias: 0,
+
             empates: 0,
+
             derrotas: 0,
+
             gp: 0,
+
             gc: 0
+
         };
 
     });
 
+    return tabela;
+
+}
+
+
+/* =====================================================
+   CALCULAR CLASSIFICAÇÃO
+===================================================== */
+
+function atualizarTabela() {
+
+    const tabela = criarTabelaInicial();
+
+
     jogos.forEach(jogo => {
 
-        const casa = tabela[jogo.casa];
-        const fora = tabela[jogo.fora];
+        /*
+           Se um dos dois placares estiver vazio,
+           o jogo ainda não conta.
+        */
+
+        if (
+            jogo.golsCasa === null ||
+            jogo.golsFora === null
+        ) {
+
+            return;
+
+        }
+
+
+        const casa =
+            tabela[jogo.casa];
+
+        const fora =
+            tabela[jogo.fora];
+
 
         casa.jogos++;
+
         fora.jogos++;
 
+
         casa.gp += jogo.golsCasa;
+
         casa.gc += jogo.golsFora;
 
+
         fora.gp += jogo.golsFora;
+
         fora.gc += jogo.golsCasa;
+
 
         if (jogo.golsCasa > jogo.golsFora) {
 
             casa.pts += 3;
+
             casa.vitorias++;
 
             fora.derrotas++;
 
-        } else if (jogo.golsCasa < jogo.golsFora) {
+        }
+
+        else if (
+            jogo.golsCasa <
+            jogo.golsFora
+        ) {
 
             fora.pts += 3;
+
             fora.vitorias++;
 
             casa.derrotas++;
 
-        } else {
+        }
+
+        else {
 
             casa.pts++;
+
             fora.pts++;
 
             casa.empates++;
+
             fora.empates++;
+
         }
 
     });
 
-    const lista = Object.values(tabela);
+
+    let lista =
+        Object.values(tabela);
+
+
+    /*
+       Critérios usados no simulador:
+       1. Pontos
+       2. Vitórias
+       3. Saldo
+       4. Gols pró
+       5. Nome
+    */
 
     lista.sort((a, b) => {
 
         if (b.pts !== a.pts)
             return b.pts - a.pts;
 
-        const saldoA = a.gp - a.gc;
-        const saldoB = b.gp - b.gc;
+        if (b.vitorias !== a.vitorias)
+            return b.vitorias - a.vitorias;
 
-        return saldoB - saldoA;
+        const saldoA =
+            a.gp - a.gc;
+
+        const saldoB =
+            b.gp - b.gc;
+
+        if (saldoB !== saldoA)
+            return saldoB - saldoA;
+
+        if (b.gp !== a.gp)
+            return b.gp - a.gp;
+
+        return a.nome.localeCompare(
+            b.nome
+        );
 
     });
 
-    const corpo = document.getElementById("tabela");
+
+    mostrarTabela(lista);
+
+}
+
+
+/* =====================================================
+   MOSTRAR CLASSIFICAÇÃO
+===================================================== */
+
+function mostrarTabela(lista) {
+
+    const corpo =
+        document.getElementById("tabela");
 
     corpo.innerHTML = "";
 
+
     lista.forEach((time, index) => {
 
-        const saldo = time.gp - time.gc;
+        const posicao =
+            index + 1;
+
+
+        const saldo =
+            time.gp - time.gc;
+
+
+        let classe = "";
+
+
+        /*
+           Primeiros 6:
+           destaque visual de Libertadores.
+
+           Últimos 4:
+           zona de rebaixamento.
+        */
+
+        if (posicao <= 6) {
+
+            classe = "libertadores";
+
+        }
+
+
+        if (posicao === 1) {
+
+            classe = "destaque";
+
+        }
+
+
+        if (posicao >= 17) {
+
+            classe = "rebaixamento";
+
+        }
+
+
+        let badge = "";
+
+
+        if (posicao === 1) {
+
+            badge =
+                '<span class="badge badge-lib">LÍDER</span>';
+
+        }
+
+        else if (posicao <= 6) {
+
+            badge =
+                '<span class="badge badge-lib">LIB</span>';
+
+        }
+
+        else if (posicao >= 17) {
+
+            badge =
+                '<span class="badge badge-z4">Z4</span>';
+
+        }
+
 
         corpo.innerHTML += `
-        <tr>
 
-            <td>${index + 1}</td>
+            <tr class="${classe}">
 
-            <td>${time.nome}</td>
+                <td class="posicao">
+                    ${posicao}
+                </td>
 
-            <td><strong>${time.pts}</strong></td>
+                <td>
+                    ${time.nome}
+                    ${badge}
+                </td>
 
-            <td>${time.jogos}</td>
+                <td>
+                    <strong>
+                        ${time.pts}
+                    </strong>
+                </td>
 
-            <td>${time.vitorias}</td>
+                <td>
+                    ${time.jogos}
+                </td>
 
-            <td>${time.empates}</td>
+                <td>
+                    ${time.vitorias}
+                </td>
 
-            <td>${time.derrotas}</td>
+                <td>
+                    ${time.empates}
+                </td>
 
-            <td>${saldo}</td>
+                <td>
+                    ${time.derrotas}
+                </td>
 
-        </tr>
+                <td>
+                    ${time.gp}
+                </td>
+
+                <td>
+                    ${time.gc}
+                </td>
+
+                <td>
+                    ${saldo}
+                </td>
+
+            </tr>
+
         `;
 
     });
+
 }
 
-function zerar() {
+
+/* =====================================================
+   ZERAR RODADA
+===================================================== */
+
+function zerarRodada() {
+
+    const rodada =
+        Number(seletor.value);
+
 
     jogos.forEach(jogo => {
 
-        jogo.golsCasa = 0;
-        jogo.golsFora = 0;
+        if (jogo.rodada === rodada) {
+
+            jogo.golsCasa = null;
+
+            jogo.golsFora = null;
+
+        }
 
     });
 
-    mostrarJogos();
+
+    mostrarRodada();
+
     atualizarTabela();
+
 }
 
-mostrarJogos();
+
+/* =====================================================
+   ZERAR CAMPEONATO
+===================================================== */
+
+function zerarTudo() {
+
+    const confirmar =
+        confirm(
+            "Tem certeza que deseja apagar todos os resultados?"
+        );
+
+
+    if (!confirmar)
+        return;
+
+
+    jogos.forEach(jogo => {
+
+        jogo.golsCasa = null;
+
+        jogo.golsFora = null;
+
+    });
+
+
+    mostrarRodada();
+
+    atualizarTabela();
+
+}
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+criarCalendario();
+
+mostrarRodada();
+
 atualizarTabela();
 
 </script>
